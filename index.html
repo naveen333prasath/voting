@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>my cool voting app</title>
+    <body>
+      <h1>vote for your favorite party</h1>
+      <form action="/vote/new" method="POST" id="pollform">
+        <label for="admk">admk</label>
+        <input
+          id="admk"
+          name="admk"
+          type="checkbox"
+          class="checkbox"
+          onclick="vote(this)"
+        />
+        <label for="dmk">dmk</label>
+        <input
+          id="dmk"
+          name="dmk"
+          type="checkbox"
+          class="checkbox"
+          onclick="vote(this)"
+        />
+        <label for="mdmk">mdmk</label>
+        <input
+          id="mdmk"
+          name="mdmk"
+          type="checkbox"
+          class="checkbox"
+          onclick="vote(this
+          )"
+        />
+        <input type="submit" />
+      </form>
+      <br />
+      <br />
+      <br />
+      <h1>results:</h1>
+      <p>admk: <span id="admk votes">0</span> votes</p>
+      <p>dmk: <span id="dmk votes">0</span> votes</p>
+      <p>mdmk: <span id="mdmk votes">0</span> votes</p>
+      <script>
+        let pollform = document.getElementById("pollform");
+        let vote = element => {
+          let checkboxes = document.getElementByclassName("checkbox");
+
+          for (let i = 0; i <= checkboxes.length - 1; i++) {
+            if (checkboxes[i].id !== element.id) {
+              checkboxes[i].checked = false;
+            }
+          }
+        };
+
+        Window.onload = () => {
+          fetch("/poll").then(results => {
+            results.json().then(data => {
+              for (x in data) {
+                console.log(x);
+                console.log(data[x]);
+                document.getElementById(x + "votes").innerText = data[x];
+              }
+            });
+          });
+        };
+      </script>
+    </body>
+  </head>
+</html>
